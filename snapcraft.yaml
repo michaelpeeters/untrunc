@@ -5,26 +5,25 @@ description: |
   Restore a damaged (truncated) mp4, m4v, mov, 3gp video. Provided you have a similar not broken video. And some luck.
 license: GPL-2.0
 base: core18
+#architectures: [amd64, i386]
+#architectures: amd64
 
 grade: stable
 confinement: strict
 
 apps:
   untrunc: 
-    command: app/untrunc
+    command: untrunc
     plugs: [home, removable-media]
 
 parts:
-  anthwlock-untrunc:
-    source: .
     plugin: make
     override-build: |
       echo "Running override-build script"
       make FF_VER=3.3.9
       strip untrunc
-      mkdir -p $SNAPCRAFT_PART_INSTALL/app
-      rm -rf $SNAPCRAFT_PART_INSTALL/app/*
-      mv untrunc $SNAPCRAFT_PART_INSTALL/app
+      mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+      mv untrunc "$SNAPCRAFT_PART_INSTALL/bin"
     build-packages:
       - yasm
       - wget
@@ -33,15 +32,3 @@ parts:
       - git
       - ca-certificates
       - xz-utils
-      - libc6
-      - libavutil-dev
-      - libavformat-dev
-      - build-essential
-   
-    stage-packages:
-      - libx11-6
-      - libva-drm2
-      - libva2
-      - libva-x11-2
-
-      
