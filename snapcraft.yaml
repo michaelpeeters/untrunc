@@ -3,6 +3,7 @@ version: "0.1-testing"
 summary: Restore a damaged (truncated) mp4, m4v, mov, 3gp video
 description: |
   Restore a damaged (truncated) mp4, m4v, mov, 3gp video. Provided you have a similar not broken video. And some luck.
+  Improved version of ponchio/untrunc
 license: GPL-2.0
 base: core18
 #architectures: [amd64, i386]
@@ -17,6 +18,8 @@ apps:
     plugs: [home, removable-media]
 
 parts:
+  untrunc-anthwlock:
+    source: .
     plugin: make
     override-build: |
       echo "Running override-build script"
